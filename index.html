@@ -17,7 +17,7 @@
       s.parentNode.insertBefore(t,s)
     }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
-    fbq('init', '127978927946856'); // ใส่ Facebook Pixel ของคุณ
+    fbq('init', '127978927946856'); // Facebook Pixel ของคุณ
     fbq('track', 'PageView');
   </script>
 
@@ -50,55 +50,41 @@
         var a = document.getElementsByTagName("script")[0];
         a.parentNode.insertBefore(o, a);
       };
-      ttq.load('D0EVS2JC77U9C23772EG'); // ใส่ TikTok Pixel ของคุณ
+      ttq.load('D0EVS2JC77U9C23772EG'); // TikTok Pixel ของคุณ
       ttq.page();
     }(window, document, 'ttq');
   </script>
 
-  <!-- Redirect by Geo -->
+  <!-- Redirect after 2 sec -->
   <script>
-    const linksByCountry = {
-      'BR': 'https://singingfiles.com/show.php?l=0&u=1287837&id=69274&tracking_id=fb', // Brazil
-      'PH': 'https://singingfiles.com/show.php?l=0&u=1287837&id=68467&tracking_id=fb'  // Philippines
-    };
-    const fallback = 'https://example.com/default'; // default fallback link
-
-    async function redirectByCountry() {
-      try {
-        const res = await fetch('https://ip-api.com/json/?fields=countryCode');
-        const data = await res.json();
-        const country = data.countryCode;
-        const redirectUrl = linksByCountry[country] || fallback;
-        setTimeout(() => window.location.href = redirectUrl, 2000);
-      } catch (e) {
-        window.location.href = fallback;
-      }
-    }
-
-    window.addEventListener('load', redirectByCountry);
+    const targetUrl = 'https://singingfiles.com/show.php?l=0&u=1287837&id=69274&tracking_id=fb';
+    setTimeout(() => {
+      window.location.href = targetUrl;
+    }, 2000);
   </script>
 
   <style>
     body {
       margin: 0;
       background: #f2f2f2;
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
       text-align: center;
+      color: #333;
     }
 
     .loader {
-      border: 4px solid #ddd;
+      border: 4px solid #eee;
       border-top: 4px solid #007bff;
       border-radius: 50%;
       width: 40px;
       height: 40px;
       animation: spin 1s linear infinite;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     @keyframes spin {
@@ -108,7 +94,6 @@
 
     h1 {
       font-size: 22px;
-      color: #222;
       margin-bottom: 10px;
     }
 
@@ -126,21 +111,11 @@
 </head>
 <body>
   <div class="loader"></div>
-  <h1>Connecting to your experience...</h1>
+  <h1>Connecting to your destination...</h1>
   <p>
-    Please wait a moment.  
-    If you are not redirected automatically,  
-    <a href="https://singingfiles.com/show.php?l=0&u=1287837&id=69274&tracking_id=fb" id="manual-link">click here</a>.
+    Please wait a moment.<br />
+    If you are not redirected automatically, 
+    <a href="https://singingfiles.com/show.php?l=0&u=1287837&id=69274&tracking_id=fb">click here</a>.
   </p>
-
-  <script>
-    // เปลี่ยนลิงก์ fallback ให้ลิงก์ของ BR หรือ PH ที่เหมาะสม
-    document.addEventListener('DOMContentLoaded', async () => {
-      const res = await fetch('https://ip-api.com/json/?fields=countryCode');
-      const { countryCode } = await res.json();
-      const manualLink = document.getElementById('manual-link');
-      manualLink.href = linksByCountry[countryCode] || fallback;
-    });
-  </script>
 </body>
 </html>
