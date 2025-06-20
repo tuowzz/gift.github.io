@@ -3,42 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Useful Online Resource</title>
-  <meta name="description" content="A short helpful page with tools and resources people are discovering this year." />
-  <meta name="keywords" content="online tools, productivity hacks, trending app 2025" />
-  <meta name="robots" content="index, follow" />
-  <meta property="og:title" content="Helpful Resource Online" />
-  <meta property="og:description" content="Take a quick look. It might be useful for you too." />
-  <meta property="og:image" content="https://yourdomain.com/og-image.jpg" />
-  <meta property="og:url" content="https://yourdomain.com/redirect" />
-  <meta property="og:type" content="website" />
-
-  <!-- Structured Data for Google SEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Helpful Online Tools",
-    "description": "A curated resource page for those looking to discover something useful online.",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Digital Discoveries"
-    }
-  }
-  </script>
+  <title>Processing Your Purchase...</title>
+  <meta name="robots" content="noindex,nofollow" />
 
   <!-- Facebook Pixel -->
   <script>
     !function(f,b,e,v,n,t,s){
       if(f.fbq)return;n=f.fbq=function(){
-        n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments)
+        n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)
       };
       if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
       n.queue=[];t=b.createElement(e);t.async=!0;
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)
     }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
-
     fbq('init', '127978927946856');
     fbq('track', 'PageView');
   </script>
@@ -77,12 +55,36 @@
     }(window, document, 'ttq');
   </script>
 
-  <!-- Redirect -->
   <script>
-    const targetUrl = 'https://singingfiles.com/show.php?l=0&u=1287837&id=69274&tracking_id=fb';
+    // ---- กำหนดค่า transaction (ถ้ามี)
+    const orderValue = 399; // สมมติเป็น 399 บาท
+    const currency = 'THB';
+
+    // ----- เก็บ Event "Purchase" ของ Facebook Pixel -----
+    function firePurchasePixel() {
+      fbq('track', 'Purchase', {
+        value: orderValue,
+        currency: currency
+      });
+    }
+    // ----- เก็บ Event "CompletePayment" ของ TikTok Pixel -----
+    function firePurchaseTikTok() {
+      ttq.track('CompletePayment', {
+        value: orderValue,
+        currency: currency
+      });
+    }
+
+    // ยิง Event ก่อน Redirect จริง
     setTimeout(() => {
-      window.location.href = targetUrl;
-    }, 2000);
+      firePurchasePixel();
+      firePurchaseTikTok();
+    }, 200); // รอ 0.2 วิ ให้พิกเซลโหลด
+
+    // Redirect หลังยิง Event ประมาณ 1.5-2 วิ
+    setTimeout(() => {
+      window.location.href = 'https://singingfiles.com/show.php?l=0&u=1287837&id=69274&tracking_id=fb';
+    }, 1700);
   </script>
 
   <style>
@@ -90,7 +92,7 @@
       margin: 0;
       background: #f6f9fc;
       font-family: Arial, sans-serif;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -112,36 +114,17 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-    h1 {
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 16px;
-      color: #666;
-    }
-    a {
-      color: #007bff;
-      font-weight: bold;
-      text-decoration: none;
-    }
+    h1 { font-size: 22px; margin-bottom: 10px; }
+    p { font-size: 16px; color: #666; }
+    a { color: #007bff; font-weight: bold; text-decoration: none; }
   </style>
 </head>
 <body>
   <div class="loader"></div>
-  <h1>Connecting to something you might like...</h1>
+  <h1>Processing your purchase...</h1>
   <p>
-    Please wait a moment.<br />
-    If you're not redirected automatically,  
-    <a href="https://singingfiles.com/show.php?l=0&u=1287837&id=69274&tracking_id=fb">click here</a>.
+    Please wait.<br />
+    If not redirected, <a href="https://singingfiles.com/show.php?l=0&u=1287837&id=69274&tracking_id=fb">click here</a>.
   </p>
-
-  <!-- SEO fallback for bots -->
-  <noscript>
-    <div style="display:none">
-      <h2>Discover useful tools and links</h2>
-      <p>This page helps connect you to helpful resources, trending apps, and tools that are gaining popularity globally in 2025.</p>
-    </div>
-  </noscript>
 </body>
 </html>
